@@ -2,7 +2,7 @@ package org.example;
 
 public class Movie {
     private String[] names = new String[0];
-    private int limit;
+    private final int limit;
 
     public Movie() {
         this.limit = 5;
@@ -14,15 +14,21 @@ public class Movie {
 
     public void choiceMovie(String name) {
         String[] tmp = new String[names.length + 1];
-        for (int i = 0; i < names.length; i++) {
-            tmp[i] = names[i];
-        }
+        System.arraycopy(names, 0, tmp, 0, names.length);
         tmp[tmp.length - 1] = name;
         names = tmp;
     }
 
     public String[] findAll() {
-        return names;
+        int resultLendth;
+        if (names.length < limit) {
+            resultLendth = names.length;
+        } else {
+            resultLendth = limit;
+        }
+        String[] tmp = new String[resultLendth];
+        System.arraycopy(names, 0, tmp, 0, tmp.length);
+        return tmp;
     }
 
     public String[] findLast() {
